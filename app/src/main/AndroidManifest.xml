@@ -21,6 +21,7 @@
         <activity android:name=".SuolueActivity"></activity>
         <activity android:name=".SuolueDisplayActivity"></activity>
         <activity android:name=".PingPuActivity"></activity>
+        <activity android:name=".videoPlayer"></activity>
     </application>
 
 </manifest>

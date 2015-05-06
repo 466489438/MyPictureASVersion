@@ -22,14 +22,19 @@ public class MyPictureActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-        //点击按钮进入横铺模式
-        this.button2.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
+		//点击按钮进入视频播放
+		this.button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent=new Intent(MyPictureActivity.this,PingPuActivity.class);
+				Intent intent=new Intent(MyPictureActivity.this,videoPlayer.class);
 				startActivity(intent);
 			}
 		});
+        //点击按钮进入横铺模式
+       // this.button2.setOnClickListener(new View.OnClickListener() {
+		//	public void onClick(View v) {
+		//		Intent intent=new Intent(MyPictureActivity.this,PingPuActivity.class);
+		//		startActivity(intent);
+		//	}
+		//});
     }
 }
