@@ -33,7 +33,7 @@ public class PingPuActivity extends Activity {
 		this.gallery=(Gallery) this.findViewById(R.id.gallery1);
 		this.xianshi=(ImageView) this.findViewById(R.id.pingpuview);
 		this.xianshi.setClickable(true);
-		path=ReadSDPath()+"/DCIM/Camera/";
+		path=ReadSDPath()+"/DCIM/100MEDIA";
 		BitmapFactory.Options opt=new BitmapFactory.Options();
 		opt.inPreferredConfig=Config.RGB_565;
 		opt.inSampleSize=4;
