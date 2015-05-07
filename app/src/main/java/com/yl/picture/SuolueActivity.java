@@ -41,7 +41,7 @@ public class SuolueActivity extends Activity {
 //			imageMaps.put(i, bm);
 //		}
 		//图片存储的准确文件夹
-		path=ReadSDPath()+"/DCIM/";
+		path=ReadSDPath()+"/DCIM/100MEDIA/";
 		Log.i("init", path+"========");
 //		Matrix matrix = new Matrix();
 //		matrix.postScale(10, 10);
