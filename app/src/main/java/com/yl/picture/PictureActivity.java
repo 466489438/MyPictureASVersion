@@ -10,14 +10,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -33,7 +31,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.roamer.ui.view.SquareCenterImageView;
 
-public class SuolueActivity extends Activity {
+public class PictureActivity extends Activity {
 	public static DisplayImageOptions mNormalImageOptions;
 	public static final String SDCARD_PATH = Environment.getExternalStorageDirectory().toString();
 	public static final String IMAGES_FOLDER = SDCARD_PATH + "/DCIM/.thumbnails/";
@@ -133,13 +131,13 @@ public class SuolueActivity extends Activity {
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			final SquareCenterImageView imageView = new SquareCenterImageView(SuolueActivity.this);
+			final SquareCenterImageView imageView = new SquareCenterImageView(PictureActivity.this);
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			ImageLoader.getInstance().displayImage(datas.get(position), imageView);
 			imageView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(SuolueActivity.this, SpaceImageDetailActivity.class);
+					Intent intent = new Intent(PictureActivity.this, SpaceImageDetailActivity.class);
 					intent.putExtra("images", (ArrayList<String>) datas);
 					intent.putExtra("position", position);
 					int[] location = new int[2];
