@@ -14,14 +14,14 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="缩略模式" />
+        android:text="图片浏览" />
 
 
     <Button
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="横铺模式" />
+        android:text="视频浏览" />
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"

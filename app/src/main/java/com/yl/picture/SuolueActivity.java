@@ -1,7 +1,9 @@
 package com.yl.picture;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -18,14 +21,54 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView.ScaleType;
+import android.widget.Toast;
+
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.memory.MemoryCacheAware;
+import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.roamer.ui.view.SquareCenterImageView;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.memory.MemoryCacheAware;
+import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.roamer.ui.view.SquareCenterImageView;
 public class SuolueActivity extends Activity {
+	public static DisplayImageOptions mNormalImageOptions;
+	public static final String SDCARD_PATH = Environment.getExternalStorageDirectory().toString();
+	public static final String IMAGES_FOLDER = SDCARD_PATH + "/DCIM/.thumbnails/";
+	private GridView mGridView;
 	private GridView gridView;
 	private String path;
 	private String sdPath;
-//	private int imagesID[]=new int[]{R.drawable.a1,R.drawable.a2,R.drawable.a3,
-//									R.drawable.a4,R.drawable.a5,R.drawable.a6,
-//									R.drawable.a7,R.drawable.a8};
+
 	private static HashMap<Integer,Bitmap> imageMaps=new HashMap<Integer,Bitmap>();
 	
 	public static HashMap<Integer, Bitmap> getImageMaps() {
@@ -35,50 +78,111 @@ public class SuolueActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.suolue);
-		this.gridView=(GridView) this.findViewById(R.id.gridView1);
-//		for(int i=0;i<imagesID.length;i++){
-//			Bitmap bm=BitmapFactory.decodeResource(getResources(), imagesID[i]);
-//			imageMaps.put(i, bm);
-//		}
-		//图片存储的准确文件夹
-		path=ReadSDPath()+"/DCIM/100MEDIA/";
-		Log.i("init", path+"========");
-//		Matrix matrix = new Matrix();
-//		matrix.postScale(10, 10);
-		//设置图片的大小
-		BitmapFactory.Options opt=new BitmapFactory.Options();
-		opt.inPreferredConfig = Bitmap.Config.RGB_565;
-		//比例缩小4
-		opt.inSampleSize=4;
-		opt.inPurgeable = true;
-		opt.inInputShareable = true;
-		//根据路径找到所有的文件的路径存到Bitmap数组中
+		initImageLoader(this);
+		path =ReadSDPath()+"/DCIM/100MEDIA/";
+		Log.v("TAG","path:"+path);
+		mGridView = (GridView) findViewById(R.id.multi_photo_grid);
+		//创建一个图片URL的LIST
+		List<String> datas=new ArrayList<String>();
+
 		File file=new File(path);
 		File[] files=file.listFiles();
+		//Log.v("TAG","list files over");
 		for(int i=0;i<files.length;i++){
-			File f=files[i];
-			Log.i("path", f.getPath()+"----------");
-			Bitmap bm=BitmapFactory.decodeFile(f.getPath(),opt);
-//			Bitmap fBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
-//                    bm.getHeight(), matrix, true);
-			imageMaps.put(i, bm);
-		}
-		//把自定义的适配器加载到gridView中
-		this.gridView.setAdapter(new MyAdapter(SuolueActivity.this));
-		//点击单张图片显示
-		this.gridView.setOnItemClickListener(new GridView.OnItemClickListener(){
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int postion,
-					long arg3) {
-				Intent intent=new Intent();
-				intent.setClass(SuolueActivity.this, SuolueDisplayActivity.class);
-				Bundle bundle=new Bundle();
-				bundle.putInt("ID", postion);
-				intent.putExtras(bundle);
-				startActivity(intent);
+			File f=files[i];
+			Bitmap drawable = BitmapFactory.decodeFile(f.getPath());
+			if(drawable == null){
+				Log.v("Picutre format error",f.getPath());
+				//Toast.makeText(this, "图片格式错误！", 0).show();
+				continue;
 			}
-		});
+			Log.v("Picutre loaded", f.getPath());
+			datas.add("file://"+f.getPath());
+
+		}
+
+		//用URL的list调用自己写的adapter
+		mGridView.setAdapter(new ImagesInnerGridViewAdapter(datas));
+	}
+
+	private void initImageLoader(Context context) {
+		int memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() / 5);
+		MemoryCacheAware<String, Bitmap> memoryCache;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+			memoryCache = new LruMemoryCache(memoryCacheSize);
+		} else {
+			memoryCache = new LRULimitedMemoryCache(memoryCacheSize);
+		}
+
+		mNormalImageOptions = new DisplayImageOptions.Builder().bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true).cacheOnDisc(true)
+				.resetViewBeforeLoading(true).build();
+
+		// This
+		// This configuration tuning is custom. You can tune every option, you
+		// may tune some of them,
+		// or you can create default configuration by
+		// ImageLoaderConfiguration.createDefault(this);
+		// method.
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).defaultDisplayImageOptions(mNormalImageOptions)
+				.denyCacheImageMultipleSizesInMemory().discCache(new UnlimitedDiscCache(new File(IMAGES_FOLDER)))
+						// .discCacheFileNameGenerator(new Md5FileNameGenerator())
+				.memoryCache(memoryCache)
+						// .memoryCacheSize(memoryCacheSize)
+				.tasksProcessingOrder(QueueProcessingType.LIFO).threadPriority(Thread.NORM_PRIORITY - 2).threadPoolSize(3).build();
+
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+	}
+
+	private class ImagesInnerGridViewAdapter extends BaseAdapter {
+
+		private List<String> datas;
+
+		public ImagesInnerGridViewAdapter(List<String> datas) {
+			this.datas = datas;
+		}
+
+		@Override
+		public int getCount() {
+			return datas.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView, ViewGroup parent) {
+			final SquareCenterImageView imageView = new SquareCenterImageView(SuolueActivity.this);
+			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+			ImageLoader.getInstance().displayImage(datas.get(position), imageView);
+			imageView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(SuolueActivity.this, SpaceImageDetailActivity.class);
+					intent.putExtra("images", (ArrayList<String>) datas);
+					intent.putExtra("position", position);
+					int[] location = new int[2];
+					imageView.getLocationOnScreen(location);
+					intent.putExtra("locationX", location[0]);
+					intent.putExtra("locationY", location[1]);
+
+					intent.putExtra("width", imageView.getWidth());
+					intent.putExtra("height", imageView.getHeight());
+					startActivity(intent);
+					overridePendingTransition(0, 0);
+				}
+			});
+			return imageView;
+		}
+
 	}
 	//获取SD卡的跟路径
 	public String ReadSDPath(){
@@ -87,45 +191,6 @@ public class SuolueActivity extends Activity {
 			return sdPath=Environment.getExternalStorageDirectory().toString();
 		}else{
 			return null;
-		}
-	}
-	//自定义适配器实现BaseAdapter
-public class MyAdapter extends BaseAdapter{
-	private Context context;
-	//定义构造方法加入Context参数
-	public MyAdapter(Context context){
-		this.context=context;
-	}
-	@Override
-	//返回值为所有图片的个数
-	public int getCount() {
-		
-		return imageMaps.size();
-	}
-
-	public Object getItem(int position) {
-		return null;
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return 0;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		//定义一个ImageView显示图片
-		ImageView imageView;
-		if(convertView==null){
-			imageView=new ImageView(context);
-			imageView.setLayoutParams(new GridView.LayoutParams(90,90));
-			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			imageView.setPadding(8, 8, 8, 8);
-		}else{
-			imageView=(ImageView)convertView;
-		}
-		imageView.setImageBitmap(imageMaps.get(position));
-		return imageView;
 		}
 	}
 }

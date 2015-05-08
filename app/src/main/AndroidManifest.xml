@@ -4,7 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="11"
+        android:targetSdkVersion="15"/>
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
 
@@ -27,6 +29,8 @@
         <activity android:name=".PingPuActivity"></activity>
         <activity android:name=".videoPlayer"></activity>
         <activity android:name=".camera"></activity>
+        <activity android:name=".SpaceImageDetailActivity"></activity>
+
     </application>
 
 </manifest>
