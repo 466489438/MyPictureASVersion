@@ -35,11 +35,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PictureActivity"></activity>
-        <activity android:name=".PictureDisplayActivity"></activity>
+        <activity android:name=".SuolueActivity"></activity>
+        <activity android:name=".SuolueDisplayActivity"></activity>
+        <activity android:name=".PingPuActivity"></activity>
         <activity android:name=".videoPlayer"></activity>
         <activity android:name=".camera"></activity>
-        <activity android:name=".videoRecording"></activity>
         <activity android:name=".SpaceImageDetailActivity"></activity>
         <activity android:name=".share"></activity>
         <activity

@@ -1,8 +1,9 @@
 package com.yl.picture;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
@@ -64,36 +65,43 @@ public class MyPictureActivity extends TabActivity implements OnCheckedChangeLis
 				case R.id.radio_button4:
 					this.mTabHost.setCurrentTabByTag("MORE_TAB");
 					break;
+=======
+import android.view.View;
+import android.widget.Button;
+
+public class MyPictureActivity extends Activity {
+	private Button button1;
+	private Button button2;
+	private Button button3;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        this.button1=(Button) this.findViewById(R.id.button1);
+        this.button2=(Button) this.findViewById(R.id.button2);
+		this.button3=(Button) this.findViewById(R.id.button3);
+        //点击按钮进入缩略模式
+        this.button1.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent intent=new Intent(MyPictureActivity.this,SuolueActivity.class);
+				startActivity(intent);
+>>>>>>> parent of 4712248... V2.5
 			}
-		}
+		});
+		//点击按钮进入视频播放
+		this.button2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent=new Intent(MyPictureActivity.this,videoPlayer.class);
+				startActivity(intent);
+			}
+		});
+		//点击按钮进入拍照模式
+		this.button3.setOnClickListener(new View.OnClickListener() {
 
-	}
-
-	private void setupIntent() {
-		this.mTabHost = getTabHost();
-		TabHost localTabHost = this.mTabHost;
-
-		localTabHost.addTab(buildTabSpec("A_TAB", R.string.main_home,
-				R.drawable.icon_1_n, this.mAIntent));
-
-		localTabHost.addTab(buildTabSpec("B_TAB", R.string.main_news,
-				R.drawable.icon_2_n, this.mBIntent));
-
-		localTabHost.addTab(buildTabSpec("C_TAB",
-				R.string.main_manage_date, R.drawable.icon_3_n,
-				this.mCIntent));
-
-		localTabHost.addTab(buildTabSpec("D_TAB", R.string.main_friends,
-				R.drawable.icon_4_n, this.mDIntent));
-
-		localTabHost.addTab(buildTabSpec("MORE_TAB", R.string.more,
-				R.drawable.icon_5_n, this.mEIntent));
-
-	}
-
-	private TabHost.TabSpec buildTabSpec(String tag, int resLabel, int resIcon,
-										 final Intent content) {
-		return this.mTabHost.newTabSpec(tag).setIndicator(getString(resLabel),
-				getResources().getDrawable(resIcon)).setContent(content);
-	}
+			public void onClick(View v) {
+				Intent intent=new Intent(MyPictureActivity.this,camera.class);
+				startActivity(intent);
+			}
+		});
+    }
 }

@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MyGallery</string>
-    <string name="main_home">照片</string>
-    <string name="main_news">视频</string>
 
+    <string name="hello">请选择浏览模式</string>
+    <string name="app_name">MyPicture</string>
 
-    <string name="main_manage_date">拍照</string>
-    <string name="main_friends">摄像</string>
-    <string name="more">更多</string>
 </resources>
-
