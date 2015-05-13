@@ -29,7 +29,7 @@ public class MyPictureActivity extends TabActivity implements OnCheckedChangeLis
 		this.mBIntent = new Intent(this,videoPlayer.class);
 		this.mCIntent = new Intent(this,camera.class);
 		this.mDIntent = new Intent(this,videoRecording.class);
-		//this.mEIntent = new Intent(this,EActivity.class);
+		this.mEIntent = new Intent(this,share.class);
 
 		((RadioButton) findViewById(R.id.radio_button0))
 				.setOnCheckedChangeListener(this);
