@@ -1,10 +1,12 @@
 package com.yl.picture;
 
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -65,43 +67,43 @@ public class MyPictureActivity extends TabActivity implements OnCheckedChangeLis
 				case R.id.radio_button4:
 					this.mTabHost.setCurrentTabByTag("MORE_TAB");
 					break;
-=======
-import android.view.View;
-import android.widget.Button;
 
-public class MyPictureActivity extends Activity {
-	private Button button1;
-	private Button button2;
-	private Button button3;
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        this.button1=(Button) this.findViewById(R.id.button1);
-        this.button2=(Button) this.findViewById(R.id.button2);
-		this.button3=(Button) this.findViewById(R.id.button3);
-        //µã»÷°´Å¥½øÈëËõÂÔÄ£Ê½
-        this.button1.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				Intent intent=new Intent(MyPictureActivity.this,SuolueActivity.class);
-				startActivity(intent);
->>>>>>> parent of 4712248... V2.5
-			}
-		});
-		//µã»÷°´Å¥½øÈëÊÓÆµ²¥·Å
-		this.button2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent intent=new Intent(MyPictureActivity.this,videoPlayer.class);
-				startActivity(intent);
-			}
-		});
-		//µã»÷°´Å¥½øÈëÅÄÕÕÄ£Ê½
-		this.button3.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				Intent intent=new Intent(MyPictureActivity.this,camera.class);
-				startActivity(intent);
+				public class MyPictureActivity extends Activity {
+					private Button button1;
+					private Button button2;
+					private Button button3;
+
+					public void onCreate(Bundle savedInstanceState) {
+						super.onCreate(savedInstanceState);
+						setContentView(R.layout.main);
+						this.button1 = (Button) this.findViewById(R.id.button1);
+						this.button2 = (Button) this.findViewById(R.id.button2);
+						this.button3 = (Button) this.findViewById(R.id.button3);
+						//ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+						this.button1.setOnClickListener(new View.OnClickListener() {
+
+							public void onClick(View v) {
+								Intent intent = new Intent(MyPictureActivity.this, SuolueActivity.class);
+								startActivity(intent);
+
+							}
+						});
+						//ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½
+						this.button2.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View v) {
+								Intent intent = new Intent(MyPictureActivity.this, videoPlayer.class);
+								startActivity(intent);
+							}
+						});
+						//ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+						this.button3.setOnClickListener(new View.OnClickListener() {
+
+							public void onClick(View v) {
+								Intent intent = new Intent(MyPictureActivity.this, camera.class);
+								startActivity(intent);
+							}
+						});
+					}
+				}
 			}
-		});
-    }
-}

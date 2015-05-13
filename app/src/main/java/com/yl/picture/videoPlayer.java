@@ -34,7 +34,7 @@ import java.util.List;
  * Created by Lemon on 2015/5/6 0006.
  */
 public class videoPlayer extends ListActivity {
-    private GridView gridView;//¾Å¹¬¸ñÊÓÍ¼
+    private GridView gridView;//ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
     private String path;
     ArrayList<VideoInfo> videoList = new ArrayList<videoPlayer.VideoInfo>();
     private static HashMap<Integer,Bitmap> imageMaps=new HashMap<Integer,Bitmap>();
@@ -47,31 +47,31 @@ public class videoPlayer extends ListActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.video);
         init();
-        //ÉèÖÃ´°¿Ú¸ñÊ½Îª°ëÍ¸Ã÷
+        //ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ú¸ï¿½Ê½Îªï¿½ï¿½Í¸ï¿½ï¿½
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
 
         //this.gridView=(GridView) this.findViewById(R.id.gridView2);
 
-        //ÊÓÆµ´æ´¢µÄ×¼È·ÎÄ¼þ¼Ð
+        //ï¿½ï¿½Æµï¿½æ´¢ï¿½ï¿½×¼È·ï¿½Ä¼ï¿½ï¿½ï¿½
         path = ReadSDPath() + "/DCIM/100MEDIA/eryw.mp4";
         Log.i("init", path + "========");
 
 
 
-        /*//µ÷ÓÃvideoView²¥·Å£¬Ð§¹û²»ºÃ£¬²»²ÉÓÃ
+        /*//ï¿½ï¿½ï¿½ï¿½videoViewï¿½ï¿½ï¿½Å£ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         File video = new File(path);
         if (video.exists()) {
             videoView.setVideoPath(video.getAbsolutePath());
-            //ÉèÖÃvideoViewÓëmController½¨Á¢¹ØÁª
+            //ï¿½ï¿½ï¿½ï¿½videoViewï¿½ï¿½mControllerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             videoView.setMediaController(mController);
-            //ÉèÖÃmControllerÓëvideoView½¨Á¢¹ØÁª
+            //ï¿½ï¿½ï¿½ï¿½mControllerï¿½ï¿½videoViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             mController.setMediaPlayer(videoView);
-            //ÈÃvideoView»ñÈ¡½¹µã
+            //ï¿½ï¿½videoViewï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
             videoView.requestFocus();
         }*/
     }
 
-    //»ñÈ¡SD¿¨µÄ¸úÂ·¾¶
+    //ï¿½ï¿½È¡SDï¿½ï¿½ï¿½Ä¸ï¿½Â·ï¿½ï¿½
     public String ReadSDPath() {
         boolean SDExit = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         if (SDExit) {
@@ -89,11 +89,11 @@ public class videoPlayer extends ListActivity {
         Log.v("TAG","click path"+videoList.get(position).filePath);
         path = videoList.get(position).filePath;
         try {
-            //µ÷ÓÃÍâ²¿²¥·ÅÆ÷
+            //ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Intent videoIntent = new Intent(Intent.ACTION_VIEW);
-            //ÉèÖÃ²¥·ÅÊÓÆµµÄÄ¿±êÂ·¾¶
+            //ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½Ä¿ï¿½ï¿½Â·ï¿½ï¿½
             videoIntent.setDataAndType(Uri.fromFile(new File(path)), "video/*");
-            //ÇëÇóÊÓÆµ²¥·Å
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½
             startActivity(Intent.createChooser(videoIntent, "Play Video"));
             Log.i("Play Video", path + "========");
         } catch (IllegalArgumentException e) {
@@ -121,7 +121,7 @@ public class videoPlayer extends ListActivity {
                 MediaStore.Video.Media.MIME_TYPE
         };
 
-        //Ê×ÏÈ¼ìË÷SDcardÉÏËùÓÐµÄvideo
+        //ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½SDcardï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½video
         cursor = this.managedQuery(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);
 
        // ArrayList<VideoInfo> videoList = new ArrayList<videoPlayer.VideoInfo>();
@@ -134,7 +134,7 @@ public class videoPlayer extends ListActivity {
                 info.mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
                 info.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
 
-                //»ñÈ¡µ±Ç°Video¶ÔÓ¦µÄId£¬È»ºó¸ù¾Ý¸ÃID»ñÈ¡ÆäThumb
+                //ï¿½ï¿½È¡ï¿½ï¿½Ç°Videoï¿½ï¿½Ó¦ï¿½ï¿½Idï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½IDï¿½ï¿½È¡ï¿½ï¿½Thumb
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
                 String selection = MediaStore.Video.Thumbnails.VIDEO_ID +"=?";
                 String[] selectionArgs = new String[]{
@@ -144,16 +144,16 @@ public class videoPlayer extends ListActivity {
 
                 if(thumbCursor.moveToFirst()){
                     info.thumbPath = thumbCursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Thumbnails.DATA));
-
+                    Log.v("thumbPath!!!!",info.thumbPath);
                 }
 
-                //È»ºó½«Æä¼ÓÈëµ½videoList
+                //È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ½videoList
                 videoList.add(info);
 
             }while(cursor.moveToNext());
         }
 
-        //È»ºóÐèÒªÉèÖÃListViewµÄAdapterÁË£¬Ê¹ÓÃÎÒÃÇ×Ô¶¨ÒåµÄAdatper
+        //È»ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ListViewï¿½ï¿½Adapterï¿½Ë£ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Adatper
         VideoAdapter adapter = new VideoAdapter(this, videoList);
         this.getListView().setAdapter(adapter);
     }
@@ -166,7 +166,7 @@ static class VideoInfo{
 }
 
 /**
- * ¶¨ÒåÒ»¸öAdapterÀ´ÏÔÊ¾ËõÂÔÍ¼ºÍÊÓÆµtitleÐÅÏ¢
+ * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Adapterï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Æµtitleï¿½ï¿½Ï¢
  * @author Administrator
  *
  */
@@ -207,7 +207,7 @@ static class VideoAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        //ÏÔÊ¾ÐÅÏ¢
+        //ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
         holder.titleText.setText(videoItems.get(position).title);
         String path = videoItems.get(position).thumbPath;
         Log.v("TAG", "thumb:" + path);
